@@ -1,0 +1,2 @@
+# anki-flashcard-generator
+ 
