@@ -310,7 +310,8 @@ def process_directory_to_anki(input_dir: str, output_dir: str, num_cards: int = 
 # Example usage:
 decks = process_directory_to_anki(
     input_dir="assets/essays",
-    output_dir="assets/flashcards"
+    output_dir="assets/anki-decks",
+    num_cards=10
 )
 
-# %%
+
