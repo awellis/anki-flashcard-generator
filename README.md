@@ -33,3 +33,11 @@ source .venv/bin/activate.fish
 pip install -r requirements.txt
 ```
 
+
+4. Create a `.env` file and add your OpenAI API key:
+
+```bash
+OPENAI_API_KEY=<your-openai-api-key>
+```
+
+5. For further instructions, see [the Anki task](https://virtuelleakademie.github.io/promptly-engineered/projects/anki/).
