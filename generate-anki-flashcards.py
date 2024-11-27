@@ -120,20 +120,25 @@ class AnkiDeck(BaseModel):
     deck_name: str = Field(..., description="Name of the Anki deck")
 
 # %%
-def generate_structured_flashcards(text: str, deck_name: str) -> AnkiDeck:
+def generate_structured_flashcards(text: str, deck_name: str, num_cards: int = 5) -> AnkiDeck:
     """
     Generate structured flashcards using GPT-4 with enforced Pydantic model output.
-    
-    This function uses OpenAI's API to generate flashcards and ensures the output
-    conforms to the AnkiDeck model structure.
     
     Args:
         text (str): The input text to generate flashcards from
         deck_name (str): Name for the Anki deck
+        num_cards (int): Number of flashcards to generate (default: 5)
         
     Returns:
         AnkiDeck: A structured deck of flashcards with proper validation
+        
+    Raises:
+        ValueError: If num_cards is less than 1
     """
+    # Validate input
+    if num_cards < 1:
+        raise ValueError("Number of cards must be at least 1")
+    
     # Make API call with structured output format
     completion = client.beta.chat.completions.parse(
         model="gpt-4o",
@@ -142,7 +147,7 @@ def generate_structured_flashcards(text: str, deck_name: str) -> AnkiDeck:
                 "role": "system",
                 "content": f"""You are an expert at creating Anki flashcards. Your task is to:
 1. Read the provided text
-2. Create 5 Anki flashcards that cover the main concepts
+2. Create {num_cards} Anki flashcards that cover the main concepts
 3. Add relevant tags to each flashcard
 4. Structure the output as an Anki deck with the name "{deck_name}"."""
             },
