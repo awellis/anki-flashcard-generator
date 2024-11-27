@@ -198,7 +198,7 @@ with open('assets/flashcards/baroque-flashcards.csv', 'w', newline='') as csvfil
         writer.writerow([card.question, card.answer, ', '.join(card.tags)])
 
 # %%
-def process_markdown_to_anki(markdown_path: str, output_path: str, deck_name: str) -> AnkiDeck:
+def process_markdown_to_anki(markdown_path: str, output_path: str, deck_name: str, num_cards: int = 5) -> AnkiDeck:
     """
     Process a markdown file into Anki flashcards and save them as CSV.
     
@@ -206,6 +206,7 @@ def process_markdown_to_anki(markdown_path: str, output_path: str, deck_name: st
         markdown_path (str): Path to the input markdown file
         output_path (str): Path where the CSV file should be saved
         deck_name (str): Name for the Anki deck
+        num_cards (int): Number of flashcards to generate (default: 5)
         
     Returns:
         AnkiDeck: The generated deck object
@@ -219,7 +220,11 @@ def process_markdown_to_anki(markdown_path: str, output_path: str, deck_name: st
         markdown_content = file.read()
     
     # Generate the Anki deck
-    deck = generate_structured_flashcards(markdown_content, deck_name)
+    deck = generate_structured_flashcards(
+        text=markdown_content, 
+        deck_name=deck_name,
+        num_cards=num_cards
+    )
     
     # Ensure output directory exists
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
@@ -244,13 +249,14 @@ modern_deck = process_markdown_to_anki(
 
 # %%
 
-def process_directory_to_anki(input_dir: str, output_dir: str) -> List[AnkiDeck]:
+def process_directory_to_anki(input_dir: str, output_dir: str, num_cards: int = 5) -> List[AnkiDeck]:
     """
     Process all markdown files in a directory into Anki flashcards and save them as CSV files.
     
     Args:
         input_dir (str): Directory containing markdown files
         output_dir (str): Directory where CSV files should be saved
+        num_cards (int): Number of flashcards to generate per deck (default: 5)
         
     Returns:
         List[AnkiDeck]: List of all generated deck objects
@@ -281,8 +287,13 @@ def process_directory_to_anki(input_dir: str, output_dir: str) -> List[AnkiDeck]
             deck_name = filename[:-3].replace('-', ' ').replace('_', ' ').title()
             
             try:
-                # Process the file
-                deck = process_markdown_to_anki(input_path, output_path, deck_name)
+                # Process the file with specified number of cards
+                deck = process_markdown_to_anki(
+                    markdown_path=input_path,
+                    output_path=output_path,
+                    deck_name=deck_name,
+                    num_cards=num_cards
+                )
                 generated_decks.append(deck)
                 print(f"Successfully processed {filename} -> {output_filename}")
             except Exception as e:
