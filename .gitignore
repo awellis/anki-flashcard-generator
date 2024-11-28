@@ -21,3 +21,4 @@ venv.bak/
 # Specific files
 _*.py
 test-*/
+output_simple/
