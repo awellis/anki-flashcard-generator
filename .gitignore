@@ -8,8 +8,8 @@ ENV/
 env.bak/
 venv.bak/
 
-
-
+# Python 
+*.pyc
 
 # VSCode
 .vscode/
