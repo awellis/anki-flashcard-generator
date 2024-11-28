@@ -2,7 +2,7 @@
 from dotenv import load_dotenv  # For loading environment variables
 from openai import OpenAI 
 
-# Load environment variables from .env file (likely contains OPENAI_API_KEY)
+# Load environment variables from .env file 
 load_dotenv()
 
 # Initialize OpenAI client using API key from environment variables
