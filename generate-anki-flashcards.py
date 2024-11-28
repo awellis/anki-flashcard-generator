@@ -189,7 +189,7 @@ import os
 os.makedirs('assets/flashcards', exist_ok=True)
 
 # Export flashcards to CSV file
-with open('assets/flashcards/baroque-flashcards.csv', 'w', newline='') as csvfile:
+with open('assets/flashcards/baroque-flashcards.csv', 'w', newline='', encoding='utf-8') as csvfile:
     writer = csv.writer(csvfile)
     # Write header row
     writer.writerow(['Question', 'Answer', 'Tags'])
