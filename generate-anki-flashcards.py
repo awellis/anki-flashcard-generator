@@ -122,7 +122,7 @@ class AnkiDeck(BaseModel):
 # %%
 def generate_structured_flashcards(text: str, deck_name: str, num_cards: int = 5) -> AnkiDeck:
     """
-    Generate structured flashcards using GPT-4 with enforced Pydantic model output.
+    Generate structured flashcards using GPT-4o with enforced Pydantic model output.
     
     Args:
         text (str): The input text to generate flashcards from
